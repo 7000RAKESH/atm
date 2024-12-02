@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ATM</title>
+  </head>
+  <body>
+    <form class="atm">
+      <input type="text" name="" id="input" placeholder="Enter Amount" />
+      <br />
+      <h4 class="display"></h4>
+      <br />
+      <button class="deposite">Deposit</button>
+      <br />
+      <br />
+      <button class="withdraw">Withdraw</button>
+      <br />
+      <br />
+      <button class="balance">Check Balance</button>
+      <br />
+    </form>
+
+    <script>
+      let input = document.querySelector("#input");
+      let display = document.querySelector(".display");
+      let amount = 1000;
+      let balance = document.querySelector(".balance");
+      let deposite = document.querySelector(".deposite");
+      let withdraw = document.querySelector(".withdraw");
+      let depAmount = 0;
+      let inputAmount = 0;
+      let withdrawAmount = 0;
+      let balanceAmount = 0;
+      display.style.display = "none";
+      input.addEventListener("input", (e) => {
+        inputAmount = e.target.value;
+      });
+
+      deposite.addEventListener("click", (e) => {
+        e.preventDefault();
+        depAmount = Number(inputAmount);
+        if (depAmount == "") {
+          display.style.display = "block";
+          display.innerHTML = "Enter amount";
+        } else {
+          amount += depAmount;
+          display.style.display = "block";
+          display.innerHTML = `${depAmount}₹ is credited to your account`;
+          console.log(amount);
+        }
+      });
+      withdraw.addEventListener("click", (e) => {
+        e.preventDefault();
+        withdrawAmount = Number(inputAmount);
+        if (withdrawAmount > amount) {
+          display.style.display = "block";
+          display.innerHTML = "Insufficient Balance";
+        } else if (withdrawAmount == "") {
+          display.style.display = "block";
+          display.innerHTML = "Enter amount";
+        } else {
+          amount -= withdrawAmount;
+          display.style.display = "block";
+          display.innerHTML = `${withdrawAmount}₹ is debited from your account`;
+        }
+      });
+      balance.addEventListener("click", (e) => {
+        e.preventDefault();
+        if (amount < 0) {
+          display.style.display = "block";
+          display.innerHTML = "Insufficient Balance";
+        } else {
+          display.style.display = "block";
+          display.innerHTML = `${amount}₹ is your current balance`;
+        }
+      });
+    </script>
+  </body>
+</html>
